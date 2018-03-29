@@ -22,6 +22,9 @@ make_dataset(df, N0, N1, CV, PWgY0, PWgY1)
 \value{
 simulated genotype data for N0 controls and N1 cases
 }
+\description{
+Simulate a dataset given a set of controls (without phenotype) and a causal model
+}
 \author{
 Mary Fortune
 }

@@ -9,6 +9,9 @@ which_genotypes(nsnps)
 \arguments{
 \item{nsnps}{The number of SNPs}
 }
+\description{
+computes a matrix telling us which haplotype pairs correspond to which genotypes
+}
 \author{
 Mary Fortune
 }

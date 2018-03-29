@@ -21,6 +21,9 @@ simulated_z_score(N0, N1, snps, W, gamma.CV, freq, df_control)
 
 \item{df_control}{A reference set of control samples}
 }
+\description{
+Compute a simulated Z Score
+}
 \author{
 Mary Fortune
 }

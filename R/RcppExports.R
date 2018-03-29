@@ -9,6 +9,14 @@ zscore <- function(N0, N1, Ufactor, powerfactor, PX1W, PX2W) {
     .Call('_simGWAS_zscore', PACKAGE = 'simGWAS', N0, N1, Ufactor, powerfactor, PX1W, PX2W)
 }
 
+vbeta_ab <- function(N0, N1, Ufactor, powerfactor, PX1W, PX2W) {
+    .Call('_simGWAS_vbeta_ab', PACKAGE = 'simGWAS', N0, N1, Ufactor, powerfactor, PX1W, PX2W)
+}
+
+vbeta <- function(N0, N1, Ufactor, powerfactor, PX1W, PX2W) {
+    .Call('_simGWAS_vbeta', PACKAGE = 'simGWAS', N0, N1, Ufactor, powerfactor, PX1W, PX2W)
+}
+
 psum <- function(x, y) {
     .Call('_simGWAS_psum', PACKAGE = 'simGWAS', x, y)
 }

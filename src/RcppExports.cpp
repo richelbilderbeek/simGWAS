@@ -34,6 +34,38 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// vbeta_ab
+NumericVector vbeta_ab(const double N0, const double N1, const NumericVector& Ufactor, const NumericVector& powerfactor, const NumericVector& PX1W, const NumericVector& PX2W);
+RcppExport SEXP _simGWAS_vbeta_ab(SEXP N0SEXP, SEXP N1SEXP, SEXP UfactorSEXP, SEXP powerfactorSEXP, SEXP PX1WSEXP, SEXP PX2WSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const double >::type N0(N0SEXP);
+    Rcpp::traits::input_parameter< const double >::type N1(N1SEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type Ufactor(UfactorSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type powerfactor(powerfactorSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type PX1W(PX1WSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type PX2W(PX2WSEXP);
+    rcpp_result_gen = Rcpp::wrap(vbeta_ab(N0, N1, Ufactor, powerfactor, PX1W, PX2W));
+    return rcpp_result_gen;
+END_RCPP
+}
+// vbeta
+double vbeta(const double N0, const double N1, const NumericVector& Ufactor, const NumericVector& powerfactor, const NumericVector& PX1W, const NumericVector& PX2W);
+RcppExport SEXP _simGWAS_vbeta(SEXP N0SEXP, SEXP N1SEXP, SEXP UfactorSEXP, SEXP powerfactorSEXP, SEXP PX1WSEXP, SEXP PX2WSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const double >::type N0(N0SEXP);
+    Rcpp::traits::input_parameter< const double >::type N1(N1SEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type Ufactor(UfactorSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type powerfactor(powerfactorSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type PX1W(PX1WSEXP);
+    Rcpp::traits::input_parameter< const NumericVector& >::type PX2W(PX2WSEXP);
+    rcpp_result_gen = Rcpp::wrap(vbeta(N0, N1, Ufactor, powerfactor, PX1W, PX2W));
+    return rcpp_result_gen;
+END_RCPP
+}
 // psum
 double psum(const NumericVector& x, const NumericVector& y);
 RcppExport SEXP _simGWAS_psum(SEXP xSEXP, SEXP ySEXP) {
@@ -126,6 +158,8 @@ END_RCPP
 static const R_CallMethodDef CallEntries[] = {
     {"_simGWAS_MatrixVector", (DL_FUNC) &_simGWAS_MatrixVector, 3},
     {"_simGWAS_zscore", (DL_FUNC) &_simGWAS_zscore, 6},
+    {"_simGWAS_vbeta_ab", (DL_FUNC) &_simGWAS_vbeta_ab, 6},
+    {"_simGWAS_vbeta", (DL_FUNC) &_simGWAS_vbeta, 6},
     {"_simGWAS_psum", (DL_FUNC) &_simGWAS_psum, 2},
     {"_simGWAS_haplabs", (DL_FUNC) &_simGWAS_haplabs, 1},
     {"_simGWAS_happrobs", (DL_FUNC) &_simGWAS_happrobs, 2},
