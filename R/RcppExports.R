@@ -41,6 +41,10 @@ combination2 <- function(x, cols) {
     .Call('_simGWAS_combination2', PACKAGE = 'simGWAS', x, cols)
 }
 
+vcf2haps <- function(x) {
+    .Call('_simGWAS_vcf2haps', PACKAGE = 'simGWAS', x)
+}
+
 wsumsq <- function(xx, yy, ww) {
     .Call('_simGWAS_wsumsq', PACKAGE = 'simGWAS', xx, yy, ww)
 }

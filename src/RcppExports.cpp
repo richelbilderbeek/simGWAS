@@ -141,6 +141,17 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// vcf2haps
+IntegerMatrix vcf2haps(const CharacterMatrix& x);
+RcppExport SEXP _simGWAS_vcf2haps(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const CharacterMatrix& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(vcf2haps(x));
+    return rcpp_result_gen;
+END_RCPP
+}
 // wsumsq
 double wsumsq(const NumericVector& xx, const NumericVector& yy, const NumericVector& ww);
 RcppExport SEXP _simGWAS_wsumsq(SEXP xxSEXP, SEXP yySEXP, SEXP wwSEXP) {
@@ -166,6 +177,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_simGWAS_meanC", (DL_FUNC) &_simGWAS_meanC, 1},
     {"_simGWAS_combinationRefs", (DL_FUNC) &_simGWAS_combinationRefs, 7},
     {"_simGWAS_combination2", (DL_FUNC) &_simGWAS_combination2, 2},
+    {"_simGWAS_vcf2haps", (DL_FUNC) &_simGWAS_vcf2haps, 1},
     {"_simGWAS_wsumsq", (DL_FUNC) &_simGWAS_wsumsq, 3},
     {NULL, NULL, 0}
 };
