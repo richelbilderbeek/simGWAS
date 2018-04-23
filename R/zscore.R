@@ -1,43 +1,54 @@
 
-##' @title Compute expected Z Score
+##' @title Compute vector of expected Z Scores
 ##' @export
 ##' @param N0 The number of Y=0
 ##' @param N1	The number of Y=1
 ##' @param snps The snps at which we wish to compute the expected Z Score
 ##' @param W	The true causal SNPs (these need not be in "snps")
-##' @param gamma.CV	The odds ratios of effect of the true causal SNPs
-##' @param freq Frequencies of SNP appearances (computed using snphap)
+##' @param gamma.W	The log odds ratios of effect of the true causal SNPs (not including gamma0, the intercept term)
+##' @param freq Haplotype frequencies as a data.frame, with column Probability indicating relative frequency in controls.  
+##' @param GenoProbList An list of objects giving the probability of seeing each {X,W} genotype vector.  This can be calculated within the function if no value supplied, or you can pass a pre-calculated version
 ##' @return The expected Z Score for all snps in snps, assuming the causal SNPs are W
-##' @author Mary Fortune
-expected_z_score<-function(N0,N1,snps,W,gamma.CV,freq){
-	GenoProbList<-make_GenoProbList(snps,W,freq)
-	gamma.sim<-c(compute_gamma0(N0,N1,W,gamma.CV,freq),gamma.CV)
-	exp_z_score<-est_statistic(N0,N1,snps,W,gamma.sim,freq,GenoProbList)
-	return(exp_z_score)
+##' @author Mary Fortune and Chris Wallace
+expected_z_score<-function(N0,N1,snps,W,gamma.W,freq,
+                            GenoProbList=make_GenoProbList(snps=snps,W=W,freq=freq)){
+    if(!(is.data.frame(freq) & "Probability" %in% colnames(freq)))
+        stop("freq must be a data.frame, with a column 'Probability' giving relative frequency of each haplotype (row)")
+    if(!all(snps %in% colnames(freq)))
+        stop("not all snps found in freq")
+    if(!all(W %in% colnames(freq)))
+        stop("not all W found in freq")
+    exp_z_score<-est_statistic(N0,N1,snps,W,gamma.W,freq,GenoProbList)
+    return(exp_z_score)
 }
 
 ##' @title Compute a simulated Z Score
 ##' @export
-##' @param N0 The number of Y=0
-##' @param N1	The number of Y=1
-##' @param snps The snps at which we wish to compute the expected Z Score
-##' @param W	The true causal SNPs (these need not be in "snps")
-##' @param gamma.CV	The odds ratios of effect of the true causal SNPs
-##' @param freq Frequencies of SNP appearances (computed using snphap)
-##' @param df_control A reference set of control samples
+##' @inheritParams expected_z_score
 ##' @param nrep Number of replicates (simulated vectors of Z scores) under this scenario.  Default=1
 ##' @author Mary Fortune and Chris Wallace
-simulated_z_score<-function(N0,N1,snps,W,gamma.CV,freq,df_control,nrep=1){
-	## GenoProbList<-make_GenoProbList(snps,W,freq)
-	## gamma.sim<-c(compute_gamma0(N0,N1,W,gamma.CV,freq),gamma.CV)
-	## exp_z_score<-est_statistic(N0,N1,snps,W,gamma.sim,freq,GenoProbList)
-	exp_z_score<- expected_z_score(N0,N1,snps,W,gamma.sim,freq,GenoProbList)
-	XX<-new("SnpMatrix", as.matrix(df_control))
-	LD <- snpStats::ld(XX,XX,stat="R",symmetric=TRUE)
-	LD<-as.matrix(make.positive.definite(LD))
-	sim_z_score<-c(rmvnorm(n=nrep,mean=exp_z_score,sigma=LD))
-	return(sim_z_score)
+simulated_z_score<-function(N0,N1,snps,W,gamma.W,freq,
+                            GenoProbList=make_GenoProbList(snps=snps,W=W,freq=freq),
+                            nrep=1){
+    exp_z_score<- expected_z_score(N0,N1,snps,W,gamma.W,freq,GenoProbList)
+    LD<-wcor2(as.matrix(freq[,setdiff(colnames(freq),"Probability")]),
+              freq$Probability)
+    sim_z_score<-rmvnorm(n=nrep,mean=exp_z_score,sigma=LD)
+    if(nrep==1)
+        return(c(sim_z_score))
+    sim_z_score
 }
+## simulated_z_score.old<-function(N0,N1,snps,W,gamma.W,freq,df_control,nrep=1){
+## 	GenoProbList<-make_GenoProbList(snps,W,freq)
+## 	gamma.sim<-c(compute_gamma0(N0,N1,W,gamma.W,freq),gamma.W)
+## 	exp_z_score<-est_statistic(N0,N1,snps,W,gamma.sim,freq,GenoProbList)
+## 	XX<-new("SnpMatrix", as.matrix(df_control))
+## 	LD <- snpStats::ld(XX,XX,stat="R",symmetric=TRUE)
+## 	LD<-as.matrix(make.positive.definite(LD))
+## 	sim_z_score<-c(rmvnorm(n=nrep,mean=exp_z_score,sigma=LD))
+## 	return(sim_z_score)
+## }
+
 
 ##' Estimates the expected Z Score for a single SNP
 ##'
@@ -86,7 +97,7 @@ est_statistic<-function(N0,N1,snps,W,gamma1,freq,GenoProbList){
         stop("length mismatch: gamma1 and W")
     if(length(GenoProbList)!=length(snps))
         stop("GenoProbList should have same length and order as snps")
-    g0 <- compute_gamma0(N0=N0,N1=N1,W=W,gamma.CV=gamma1,freq=freq)
+    g0 <- compute_gamma0(N0=N0,N1=N1,W=W,gamma.W=gamma1,freq=freq)
     ## compute P(Y=1 | W=w)
     N<-N0+N1
     expeta<-exp(g0+rowSums(sweep((hcube(rep(3,length(W)))-1),MARGIN=2,gamma1,`*`)))

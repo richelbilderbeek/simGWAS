@@ -3,6 +3,11 @@ using namespace Rcpp;
 
 /* convert 0|1 to haps */
 
+// vcf2haps
+// 
+// convert a character matrix read from a vcf file (entries like 0|1) into a haplotype matrix of 0 and 1
+// @title vcf2haps
+// @param x character matrix
 // [[Rcpp::export]]
 IntegerMatrix vcf2haps( const CharacterMatrix& x) {
   int n = x.nrow();
