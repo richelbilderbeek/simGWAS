@@ -4,7 +4,7 @@
 \alias{compute_gamma0}
 \title{Compute gamma0, given haplotype frequencies}
 \usage{
-compute_gamma0(N0, N1, W, gamma.CV, freq)
+compute_gamma0(N0, N1, W, gamma.W, freq)
 }
 \arguments{
 \item{N0}{number of samples with Y=0}
@@ -13,7 +13,7 @@ compute_gamma0(N0, N1, W, gamma.CV, freq)
 
 \item{W}{The causal SNPs}
 
-\item{gamma.CV}{The odds ratios of effect for each CV}
+\item{gamma.W}{The odds ratios of effect for each CV}
 
 \item{freq}{Frequencies of SNP appearances (computed using snphap)}
 }

@@ -4,7 +4,7 @@
 \alias{est_statistic}
 \title{estimate Z score at a single SNP}
 \usage{
-est_statistic(N0, N1, snps, W, gamma1, freq, GenoProbList)
+est_statistic(N0, N1, snps, W, gamma.W, freq, GenoProbList)
 }
 \arguments{
 \item{N0}{The number of Y=0}
@@ -15,7 +15,7 @@ est_statistic(N0, N1, snps, W, gamma1, freq, GenoProbList)
 
 \item{W}{The true causal SNPs (these need not be in "snps")}
 
-\item{gamma1}{The odds ratios of effect of the true causal SNPs (not including gamma0, the intercept term)}
+\item{gamma.W}{The odds ratios of effect of the true causal SNPs (not including gamma0, the intercept term)}
 
 \item{freq}{Frequencies of SNP appearances (computed using snphap)}
 

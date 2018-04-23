@@ -84,23 +84,23 @@ est_zscore<-function(N0,N1,Ufactor,powerfactor,freq,GenoProbXW){
 ##' @param N1	The number of Y=1
 ##' @param snps The snps at which we wish to compute the expected Z Score
 ##' @param W	The true causal SNPs (these need not be in "snps")
-##' @param gamma1	The odds ratios of effect of the true causal SNPs (not including gamma0, the intercept term)
+##' @param gamma.W	The odds ratios of effect of the true causal SNPs (not including gamma0, the intercept term)
 ##' @param freq Frequencies of SNP appearances (computed using snphap)
 ##' @param GenoProbList An list of objects giving the probability of seeing each {X,W} genotype vector
 ##' @return The expected Z Score for SNP X, assuming the causal SNPs are W
 ##' @author Mary Fortune and Chris Wallace
-est_statistic<-function(N0,N1,snps,W,gamma1,freq,GenoProbList){
+est_statistic<-function(N0,N1,snps,W,gamma.W,freq,GenoProbList){
                                         #check that we have SNPs X and W in the reference dataset
     if (!all(c(snps,W) %in% colnames(freq)))
         stop("SNPs of interest not present in reference dataset.")
-    if(length(gamma1)!=length(W))
-        stop("length mismatch: gamma1 and W")
+    if(length(gamma.W)!=length(W))
+        stop("length mismatch: gamma.W and W")
     if(length(GenoProbList)!=length(snps))
         stop("GenoProbList should have same length and order as snps")
-    g0 <- compute_gamma0(N0=N0,N1=N1,W=W,gamma.W=gamma1,freq=freq)
+    g0 <- compute_gamma0(N0=N0,N1=N1,W=W,gamma.W=gamma.W,freq=freq)
     ## compute P(Y=1 | W=w)
     N<-N0+N1
-    expeta<-exp(g0+rowSums(sweep((hcube(rep(3,length(W)))-1),MARGIN=2,gamma1,`*`)))
+    expeta<-exp(g0+rowSums(sweep((hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`)))
                                         #compute the constant factors we will multiply by
     Ufactor<-N0*(N-1)*(N0*expeta-N1)/(N^2)
     powerfactor<-N0*(expeta+1)/N

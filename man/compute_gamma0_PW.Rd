@@ -4,7 +4,7 @@
 \alias{compute_gamma0_PW}
 \title{Compute gamma0 given distribution of W}
 \usage{
-compute_gamma0_PW(N0, N1, W, gamma.CV, PWgY0)
+compute_gamma0_PW(N0, N1, W, gamma.W, PWgY0)
 }
 \arguments{
 \item{N0}{number of samples with Y=0}
@@ -13,7 +13,7 @@ compute_gamma0_PW(N0, N1, W, gamma.CV, PWgY0)
 
 \item{W}{The causal SNPs}
 
-\item{gamma.CV}{The odds ratios of effect for each CV}
+\item{gamma.W}{The odds ratios of effect for each CV}
 
 \item{PWgY0}{the distribution of causal snps in controls}
 }
