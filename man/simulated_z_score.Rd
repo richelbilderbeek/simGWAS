@@ -25,9 +25,6 @@ simulated_z_score(N0, N1, snps, W, gamma.W, freq,
 
 \item{nrep}{Number of replicates (simulated vectors of Z scores) under this scenario.  Default=1}
 }
-\description{
-Compute a simulated Z Score
-}
 \author{
 Mary Fortune and Chris Wallace
 }

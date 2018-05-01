@@ -9,8 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-## 
-
 Load the library
 
 ```{r}
@@ -89,3 +87,6 @@ If we need log odds ratios and standard errors, rather than simply Z scores, we 
   betasim <- zsim * sqrt(vbetasim)
 ```
 
+## See also
+
+Examples of using simGWAS with reference data from the 1000 Genomes project to simulate single regions or whole chromosomes can be found at https://github.com/chr1swallace/simgwas-paper.  In particular see https://github.com/chr1swallace/simgwas-paper/blob/master/runsims-1kg.R for single region, and https://github.com/chr1swallace/simgwas-paper/blob/master/run-chr.R for a whole chromosome.
