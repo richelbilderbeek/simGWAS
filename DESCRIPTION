@@ -1,8 +1,8 @@
 Package: simGWAS
 Type: Package
 Title: Simulating the expected output from a GWAS with a given causal model
-Version: 3.2.3
-Date: 2016-09-16
+Version: 0.1-0
+Date: 2018-05-09
 Authors@R: c(person("Mary", "Fortune", role=c("aut","cre"), email = "mdf34@cam.ac.uk"),
     person("Chris","Wallace", role="aut", email="cew54@cam.ac.uk"),
     person("Marcus", "Klarqvist", role=c("ctb")))
@@ -31,5 +31,8 @@ Imports:
     mvtnorm
 RoxygenNote: 6.0.1.9000
 Suggests: knitr,
-    rmarkdown
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
+URL: https://github.com/chr1swallace/simGWAS
+BugReports: https://github.com/chr1swallace/simGWAS/issues
