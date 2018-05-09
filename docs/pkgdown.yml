@@ -3,4 +3,7 @@ pkgdown: 1.0.0
 pkgdown_sha: ~
 articles:
   intro: intro.html
+urls:
+  reference: http://lbusett.github.io/MODIStsp/reference
+  article: http://lbusett.github.io/MODIStsp/articles
 

@@ -1,6 +1,6 @@
 Package: simGWAS
 Type: Package
-Title: Simulating the expected output from a GWAS with a given causal model
+Title: Fast simulation of large-scale GWAS output 
 Version: 0.1-0
 Date: 2018-05-09
 Authors@R: c(person("Mary", "Fortune", role=c("aut","cre"), email = "mdf34@cam.ac.uk"),
@@ -8,8 +8,7 @@ Authors@R: c(person("Mary", "Fortune", role=c("aut","cre"), email = "mdf34@cam.a
     person("Marcus", "Klarqvist", role=c("ctb")))
 Author: Mary Fortune
 Maintainer: Mary Fortune <mdf34@cam.ac.uk>
-Description: Simulating the expected output from a GWAS with a given causal
-    model.
+Description: Simulating output from a case-control GWAS with a given causal model.
 License: GPL
 LazyLoad: yes
 Collate:

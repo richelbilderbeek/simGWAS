@@ -6,13 +6,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • simGWAS</title>
+<title>Function reference • MODIStsp</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
+<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/simplex/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -116,8 +116,48 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-expected-statistics" class="hasAnchor"><a href="#section-expected-statistics" class="anchor"></a>Expected statistics</h2>
           <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="expected_z_score.html">expected_z_score()</a></code> </p>
+        </td>
+        <td><p>Compute vector of expected Z Scores</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="expected_vbeta.html">expected_vbeta()</a></code> </p>
+        </td>
+        <td><p>Estimate the expected variance of beta</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-simulate-statistics" class="hasAnchor"><a href="#section-simulate-statistics" class="anchor"></a>Simulate statistics</h2>
+          <p class="section-desc"><p>Simulated GWAS results vary about the expected statistics</p></p>
+        </th>
+      </tr>
+      <tr>
+        <!--  -->
+        <td>
+          <p><code><a href="simulated_vbeta.html">simulated_vbeta()</a></code> </p>
+        </td>
+        <td><p>Compute a simulated var(beta)</p></td>
+      </tr><tr>
+        <!--  -->
+        <td>
+          <p><code><a href="simulated_z_score.html">simulated_z_score()</a></code> </p>
+        </td>
+        <td><p>Compute a simulated Z Score</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-others" class="hasAnchor"><a href="#section-others" class="anchor"></a>Others</h2>
+          <p class="section-desc"><p>Other functions and helpers</p></p>
         </th>
       </tr>
       <tr>
@@ -147,18 +187,6 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="expected_vbeta.html">expected_vbeta()</a></code> </p>
-        </td>
-        <td><p>Estimate the expected variance of beta</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="expected_z_score.html">expected_z_score()</a></code> </p>
-        </td>
-        <td><p>Compute vector of expected Z Scores</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
           <p><code><a href="make_GenoProbList.html">make_GenoProbList()</a></code> </p>
         </td>
         <td><p>make_GenoProbList</p></td>
@@ -177,18 +205,6 @@
       </tr><tr>
         <!--  -->
         <td>
-          <p><code><a href="simulated_vbeta.html">simulated_vbeta()</a></code> </p>
-        </td>
-        <td><p>Compute a simulated var(beta)</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
-          <p><code><a href="simulated_z_score.html">simulated_z_score()</a></code> </p>
-        </td>
-        <td><p>Compute a simulated Z Score</p></td>
-      </tr><tr>
-        <!--  -->
-        <td>
           <p><code><a href="which_genotypes.html">which_genotypes()</a></code> </p>
         </td>
         <td><p>computes a matrix telling us which haplotype pairs correspond to which genotypes</p></td>
@@ -200,7 +216,9 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-expected-statistics">Expected statistics</a></li>
+      <li><a href="#section-simulate-statistics">Simulate statistics</a></li>
+      <li><a href="#section-others">Others</a></li>
     </ul>
   </div>
 </div>
