@@ -4,6 +4,6 @@ pkgdown_sha: ~
 articles:
   intro: intro.html
 urls:
-  reference: http://lbusett.github.io/MODIStsp/reference
-  article: http://lbusett.github.io/MODIStsp/articles
+  reference: http://chr1swallace.github.io/simGWAS/reference
+  article: http://chr1swallace.github.io/simGWAS/articles
 
