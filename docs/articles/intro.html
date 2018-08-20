@@ -158,7 +158,7 @@ zexp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/expect
 ## [1,] 0.3340058 0.1581427
 ## [2,] 0.3641675 0.1862917
 ## [3,] 0.3474264 0.1738404</code></pre>
-<p>Again, these can be plotted, to see the variability:</p>
+<p>Again, these can be plotted, to see the variability between replicates:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span>nsnps,betasim[<span class="dv">1</span>,],<span class="dt">xlab=</span><span class="st">"SNP"</span>,<span class="dt">ylab=</span><span class="st">"Beta (log OR)"</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(betasim),<span class="kw">max</span>(betasim))); <span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">which</span>(snps <span class="op">%in%</span><span class="st"> </span>CV),<span class="dt">col=</span><span class="st">"red"</span>); <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>)
 <span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>) {
   <span class="kw">points</span>(<span class="dv">1</span><span class="op">:</span>nsnps,betasim[i,],<span class="dt">col=</span>i,<span class="dt">pch=</span>i)
