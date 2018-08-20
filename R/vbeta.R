@@ -72,7 +72,7 @@ simulated_vbeta<-function(N0,N1,snps,W,gamma.W,freq,
     beta <- sapply(AB,"[[","beta")
     V <- lapply(1:nrep, function(ab) 1/rgamma(length(alpha), shape=alpha, scale=1/beta) *
                                      (N0*N1/(N)))
-    do.call("rbind",V)
+    1/do.call("rbind",V)
 }
 
 cor2 <- function (x) {

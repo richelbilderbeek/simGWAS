@@ -14,6 +14,7 @@ vignette: >
 Load the library
 
 ```{r}
+set.seed(42)
 library(simGWAS)
 ```
 
@@ -30,7 +31,7 @@ laghaps <- do.call("cbind", lapply(maf, function(f) rbinom(nhaps,1,f)))
 haps <- laghaps[,1:nsnps]
 for(j in 1:lag) 
     haps <- haps + laghaps[,(1:nsnps)+j]
-haps <- round(haps/(lag+1))
+haps <- round(haps/matrix(apply(haps,2,max),nhaps,nsnps,byrow=TRUE))
 
 snps <- colnames(haps) <- paste0("s",1:nsnps)
 freq <- as.data.frame(haps+1)
@@ -41,7 +42,7 @@ sum(freq$Probability)
 Next, we need to specify the causal variants, and their effects on disease, as odds ratios.  We create a vector `CV` with snp names that are a subset of column names in `freq` and a vector of odds ratios.  In our simulated data, we pick two causal variants at random, with odds ratios of 1.4 and 1.2.
 
 ```{r}
-CV=sample(snps,2)
+CV=sample(snps[which(colMeans(haps)>0.1)],2)
 g1 <- c(1.4,1.2)
 ```
 
@@ -49,11 +50,11 @@ Now we simulate the results of a GWAS.  There are two key functions, `makeGenoPr
 
 ```{r}
 FP <- make_GenoProbList(snps=snps,W=CV,freq=freq)
-z <- expected_z_score(N0=3000, # number of controls
-              N1=2000, # number of cases
+zexp <- expected_z_score(N0=10000, # number of controls
+              N1=10000, # number of cases
               snps=snps, # column names in freq of SNPs for which Z scores should be generated
               W=CV, # causal variants, subset of snps
-              gamma.W=g1, # odds ratios
+              gamma.W=log(g1), # odds ratios
               freq=freq, # reference haplotypes
               GenoProbList=FP) # FP above
 ```
@@ -61,31 +62,51 @@ z <- expected_z_score(N0=3000, # number of controls
 Ignoring spacing, this would produce results like, with red lines indicating where the causal variants are.
 
 ```{r}
-plot(1:nsnps,z); abline(v=which(snps %in% CV),col="red"); abline(h=0)
+plot(1:nsnps,zexp); abline(v=which(snps %in% CV),col="red"); abline(h=0)
 ```
 
 True GWAS statistics will vary about this expected value, and may be simulated by (one row per realisation)
 
 ```{r}
-zsim <- simulated_z_score(N0=3000, # number of controls
-              N1=2000, # number of cases
+zsim <- simulated_z_score(N0=10000, # number of controls
+              N1=10000, # number of cases
               snps=snps, # column names in freq of SNPs for which Z scores should be generated
               W=CV, # causal variants, subset of snps
-              gamma.W=g1, # log odds ratios
+              gamma.W=log(g1), # log odds ratios
               freq=freq, # reference haplotypes
           nrep=3)
+```
+
+To see how these vary about the expected, we can overplot the two:
+
+```{r}
+par(mfcol=c(3,1))
+for(i in 1:3) {
+  plot(1:nsnps,zexp,xlab="SNP",ylab="Z score"); abline(v=which(snps %in% CV),col="red"); abline(h=0)
+  title(main=paste("Replication",i))
+  points(1:nsnps,zsim[i,],col="blue",pch=2)
+} 
 ```
 
 If we need log odds ratios and standard errors, rather than simply Z scores, we may simulate variance(beta) by:
 
 ```{r}
- vbetasim <- simulated_vbeta(N0=3000, # number of controls
-              N1=2000, # number of cases
+ vbetasim <- simulated_vbeta(N0=10000, # number of controls
+              N1=10000, # number of cases
               snps=snps, # column names in freq of SNPs for which Z scores should be generated
               W=CV, # causal variants, subset of snps
-              gamma.W=g1, # log odds ratios
+              gamma.W=log(g1), # log odds ratios
               freq=freq, # reference haplotypes
           nrep=3)
   betasim <- zsim * sqrt(vbetasim)
 ```
 
+Again, these can be plotted, to see the variability:
+```{r}
+
+plot(1:nsnps,betasim[1,],xlab="SNP",ylab="Beta (log OR)",ylim=c(min(betasim),max(betasim))); abline(v=which(snps %in% CV),col="red"); abline(h=0)
+for(i in 2:3) {
+  points(1:nsnps,betasim[i,],col=i,pch=i)
+} 
+  
+```
