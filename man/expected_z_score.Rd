@@ -25,9 +25,6 @@ expected_z_score(N0, N1, snps, W, gamma.W, freq,
 \value{
 The expected Z Score for all snps in snps, assuming the causal SNPs are W
 }
-\description{
-Compute vector of expected Z Scores
-}
 \author{
 Mary Fortune and Chris Wallace
 }
