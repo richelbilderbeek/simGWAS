@@ -10,6 +10,10 @@ install.packages("devtools") # if not already installed
 devtools::install_github("chr1swallace/simGWAS")
 ```
 
+## Documentation
+
+Please see the vignette in package, or at https://chr1swallace.github.io/simGWAS/articles/intro.html for example use
+
 ## What is this about?
 
 From the abstract:
