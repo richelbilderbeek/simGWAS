@@ -110,7 +110,10 @@ betasim[,c(which(snps==CV[1]),which(snps==CV[2]))]
 Again, these can be plotted, to see the variability between replicates:
 ```{r}
 
-plot(1:nsnps,betasim[1,],xlab="SNP",ylab="Beta (log OR)",ylim=c(min(betasim),max(betasim))); abline(v=which(snps %in% CV),col="red"); abline(h=0)
+plot(1:nsnps,betasim[1,],
+     xlab="SNP",ylab="Beta (log OR)",
+     ylim=c(min(betasim),max(betasim)))
+abline(v=which(snps %in% CV),col="red"); abline(h=0)
 for(i in 2:3) {
   points(1:nsnps,betasim[i,],col=i,pch=i)
 } 
