@@ -12,7 +12,6 @@ vignette: >
 Load the library
 
 ```{r}
-set.seed(42)
 library(simGWAS)
 ```
 
