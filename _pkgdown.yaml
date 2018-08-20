@@ -23,5 +23,3 @@ reference:
       - '`est_zscore`'
       - '`make_GenoProbList`'
       - '`make_dataset`'
-      - '`make_dataset_pheno`'
-      - '`which_genotypes`'
