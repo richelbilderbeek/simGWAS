@@ -8,8 +8,8 @@
 <title>Simulating GWAS data, a walkthrough • simGWAS</title>
 <!-- jquery --><script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/simplex/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script><!-- Font Awesome icons --><link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../jquery.sticky-kit.min.js"></script><script src="../pkgdown.js"></script><meta property="og:title" content="Simulating GWAS data, a walkthrough">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Simulating GWAS data, a walkthrough">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script><!--[if lt IE 9]>
@@ -79,7 +79,7 @@
       <h1>Simulating GWAS data, a walkthrough</h1>
                         <h4 class="author">Chris Wallace</h4>
             
-            <h4 class="date">2018-05-09</h4>
+            <h4 class="date">2018-08-20</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/chr1swallace/simGWAS/blob/master/vignettes/intro.Rmd"><code>vignettes/intro.Rmd</code></a></small>
       <div class="hidden name"><code>intro.Rmd</code></div>
@@ -101,7 +101,7 @@ laghaps &lt;-<span class="st"> </span><span class="kw">do.call</span>(<span clas
 haps &lt;-<span class="st"> </span>laghaps[,<span class="dv">1</span><span class="op">:</span>nsnps]
 <span class="cf">for</span>(j <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>lag) 
     haps &lt;-<span class="st"> </span>haps <span class="op">+</span><span class="st"> </span>laghaps[,(<span class="dv">1</span><span class="op">:</span>nsnps)<span class="op">+</span>j]
-haps &lt;-<span class="st"> </span><span class="kw">round</span>(haps<span class="op">/</span>(lag<span class="op">+</span><span class="dv">1</span>))
+haps &lt;-<span class="st"> </span><span class="kw">round</span>(haps<span class="op">/</span><span class="kw">matrix</span>(<span class="kw">apply</span>(haps,<span class="dv">2</span>,max),nhaps,nsnps,<span class="dt">byrow=</span><span class="ot">TRUE</span>))
 
 snps &lt;-<span class="st"> </span><span class="kw">colnames</span>(haps) &lt;-<span class="st"> </span><span class="kw">paste0</span>(<span class="st">"s"</span>,<span class="dv">1</span><span class="op">:</span>nsnps)
 freq &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(haps<span class="op">+</span><span class="dv">1</span>)
@@ -109,37 +109,61 @@ freq<span class="op">$</span>Probability &lt;-<span class="st"> </span><span cla
 <span class="kw">sum</span>(freq<span class="op">$</span>Probability)</code></pre></div>
 <pre><code>## [1] 1</code></pre>
 <p>Next, we need to specify the causal variants, and their effects on disease, as odds ratios. We create a vector <code>CV</code> with snp names that are a subset of column names in <code>freq</code> and a vector of odds ratios. In our simulated data, we pick two causal variants at random, with odds ratios of 1.4 and 1.2.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CV=<span class="kw">sample</span>(snps,<span class="dv">2</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CV=<span class="kw">sample</span>(snps[<span class="kw">which</span>(<span class="kw">colMeans</span>(haps)<span class="op">&gt;</span><span class="fl">0.1</span>)],<span class="dv">2</span>)
 g1 &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">1.4</span>,<span class="fl">1.2</span>)</code></pre></div>
 <p>Now we simulate the results of a GWAS. There are two key functions, <code>makeGenoProbList</code> calculates genotype probabilities at each SNP conditional on genotypes at the causal variants, then <code>est_statistic</code> generates the vector of Z scores across all SNPs, conditional on the causal variants <em>and</em> their odds ratios.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">FP &lt;-<span class="st"> </span><span class="kw"><a href="../reference/make_GenoProbList.html">make_GenoProbList</a></span>(<span class="dt">snps=</span>snps,<span class="dt">W=</span>CV,<span class="dt">freq=</span>freq)
-z &lt;-<span class="st"> </span><span class="kw"><a href="../reference/expected_z_score.html">expected_z_score</a></span>(<span class="dt">N0=</span><span class="dv">3000</span>, <span class="co"># number of controls</span>
-              <span class="dt">N1=</span><span class="dv">2000</span>, <span class="co"># number of cases</span>
+zexp &lt;-<span class="st"> </span><span class="kw"><a href="../reference/expected_z_score.html">expected_z_score</a></span>(<span class="dt">N0=</span><span class="dv">10000</span>, <span class="co"># number of controls</span>
+              <span class="dt">N1=</span><span class="dv">10000</span>, <span class="co"># number of cases</span>
               <span class="dt">snps=</span>snps, <span class="co"># column names in freq of SNPs for which Z scores should be generated</span>
               <span class="dt">W=</span>CV, <span class="co"># causal variants, subset of snps</span>
-              <span class="dt">gamma.W=</span>g1, <span class="co"># odds ratios</span>
+              <span class="dt">gamma.W=</span><span class="kw">log</span>(g1), <span class="co"># odds ratios</span>
               <span class="dt">freq=</span>freq, <span class="co"># reference haplotypes</span>
               <span class="dt">GenoProbList=</span>FP) <span class="co"># FP above</span></code></pre></div>
 <p>Ignoring spacing, this would produce results like, with red lines indicating where the causal variants are.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span>nsnps,z); <span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">which</span>(snps <span class="op">%in%</span><span class="st"> </span>CV),<span class="dt">col=</span><span class="st">"red"</span>); <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span>nsnps,zexp); <span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">which</span>(snps <span class="op">%in%</span><span class="st"> </span>CV),<span class="dt">col=</span><span class="st">"red"</span>); <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>)</code></pre></div>
 <p><img src="intro_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>True GWAS statistics will vary about this expected value, and may be simulated by (one row per realisation)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">zsim &lt;-<span class="st"> </span><span class="kw"><a href="../reference/simulated_z_score.html">simulated_z_score</a></span>(<span class="dt">N0=</span><span class="dv">3000</span>, <span class="co"># number of controls</span>
-              <span class="dt">N1=</span><span class="dv">2000</span>, <span class="co"># number of cases</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">zsim &lt;-<span class="st"> </span><span class="kw"><a href="../reference/simulated_z_score.html">simulated_z_score</a></span>(<span class="dt">N0=</span><span class="dv">10000</span>, <span class="co"># number of controls</span>
+              <span class="dt">N1=</span><span class="dv">10000</span>, <span class="co"># number of cases</span>
               <span class="dt">snps=</span>snps, <span class="co"># column names in freq of SNPs for which Z scores should be generated</span>
               <span class="dt">W=</span>CV, <span class="co"># causal variants, subset of snps</span>
-              <span class="dt">gamma.W=</span>g1, <span class="co"># log odds ratios</span>
+              <span class="dt">gamma.W=</span><span class="kw">log</span>(g1), <span class="co"># log odds ratios</span>
               <span class="dt">freq=</span>freq, <span class="co"># reference haplotypes</span>
           <span class="dt">nrep=</span><span class="dv">3</span>)</code></pre></div>
+<p>To see how these vary about the expected, we can overplot the two:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">par</span>(<span class="dt">mfcol=</span><span class="kw">c</span>(<span class="dv">3</span>,<span class="dv">1</span>))
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">3</span>) {
+  <span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span>nsnps,zexp,<span class="dt">xlab=</span><span class="st">"SNP"</span>,<span class="dt">ylab=</span><span class="st">"Z score"</span>); <span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">which</span>(snps <span class="op">%in%</span><span class="st"> </span>CV),<span class="dt">col=</span><span class="st">"red"</span>); <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>)
+  <span class="kw">title</span>(<span class="dt">main=</span><span class="kw">paste</span>(<span class="st">"Replication"</span>,i))
+  <span class="kw">points</span>(<span class="dv">1</span><span class="op">:</span>nsnps,zsim[i,],<span class="dt">col=</span><span class="st">"blue"</span>,<span class="dt">pch=</span><span class="dv">2</span>)
+} </code></pre></div>
+<p><img src="intro_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <p>If we need log odds ratios and standard errors, rather than simply Z scores, we may simulate variance(beta) by:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> vbetasim &lt;-<span class="st"> </span><span class="kw"><a href="../reference/simulated_vbeta.html">simulated_vbeta</a></span>(<span class="dt">N0=</span><span class="dv">3000</span>, <span class="co"># number of controls</span>
-              <span class="dt">N1=</span><span class="dv">2000</span>, <span class="co"># number of cases</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"> vbetasim &lt;-<span class="st"> </span><span class="kw"><a href="../reference/simulated_vbeta.html">simulated_vbeta</a></span>(<span class="dt">N0=</span><span class="dv">10000</span>, <span class="co"># number of controls</span>
+              <span class="dt">N1=</span><span class="dv">10000</span>, <span class="co"># number of cases</span>
               <span class="dt">snps=</span>snps, <span class="co"># column names in freq of SNPs for which Z scores should be generated</span>
               <span class="dt">W=</span>CV, <span class="co"># causal variants, subset of snps</span>
-              <span class="dt">gamma.W=</span>g1, <span class="co"># log odds ratios</span>
+              <span class="dt">gamma.W=</span><span class="kw">log</span>(g1), <span class="co"># log odds ratios</span>
               <span class="dt">freq=</span>freq, <span class="co"># reference haplotypes</span>
           <span class="dt">nrep=</span><span class="dv">3</span>)
-  betasim &lt;-<span class="st"> </span>zsim <span class="op">*</span><span class="st"> </span><span class="kw">sqrt</span>(vbetasim)</code></pre></div>
+  betasim &lt;-<span class="st"> </span>zsim <span class="op">/</span><span class="st"> </span><span class="kw">sqrt</span>(vbetasim)</code></pre></div>
+<p>The simulated odds ratios should be distributed about g1:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">CV</code></pre></div>
+<pre><code>## [1] "s97" "s35"</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">log</span>(g1)</code></pre></div>
+<pre><code>## [1] 0.3364722 0.1823216</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">betasim[,<span class="kw">c</span>(<span class="kw">which</span>(snps<span class="op">==</span>CV[<span class="dv">1</span>]),<span class="kw">which</span>(snps<span class="op">==</span>CV[<span class="dv">2</span>]))]</code></pre></div>
+<pre><code>##           [,1]      [,2]
+## [1,] 0.3340058 0.1581427
+## [2,] 0.3641675 0.1862917
+## [3,] 0.3474264 0.1738404</code></pre>
+<p>Again, these can be plotted, to see the variability:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(<span class="dv">1</span><span class="op">:</span>nsnps,betasim[<span class="dv">1</span>,],<span class="dt">xlab=</span><span class="st">"SNP"</span>,<span class="dt">ylab=</span><span class="st">"Beta (log OR)"</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="kw">min</span>(betasim),<span class="kw">max</span>(betasim))); <span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">which</span>(snps <span class="op">%in%</span><span class="st"> </span>CV),<span class="dt">col=</span><span class="st">"red"</span>); <span class="kw">abline</span>(<span class="dt">h=</span><span class="dv">0</span>)
+<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="dv">3</span>) {
+  <span class="kw">points</span>(<span class="dv">1</span><span class="op">:</span>nsnps,betasim[i,],<span class="dt">col=</span>i,<span class="dt">pch=</span>i)
+} </code></pre></div>
+<p><img src="intro_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <div id="see-also" class="section level2">
 <h2 class="hasAnchor">
 <a href="#see-also" class="anchor"></a>See also</h2>
