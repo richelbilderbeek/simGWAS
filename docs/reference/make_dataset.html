@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simulate a dataset given a set of controls (without phenotype) and a causal model — make_dataset • simGWAS</title>
+<title>Simulate a dataset — make_dataset • simGWAS</title>
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
@@ -30,7 +30,9 @@
 
 
 
-<meta property="og:title" content="Simulate a dataset given a set of controls (without phenotype) and a causal model — make_dataset" />
+<meta property="og:title" content="Simulate a dataset — make_dataset" />
+
+<meta property="og:description" content="Simulate a dataset" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -59,7 +61,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">simGWAS</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.1.0</span>
+        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released package">0.2.0</span>
       </span>
     </div>
 
@@ -86,6 +88,9 @@
     </li>
   </ul>
 </li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
@@ -107,13 +112,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Simulate a dataset given a set of controls (without phenotype) and a causal model</h1>
+    <h1>Simulate a dataset</h1>
     <small class="dont-index">Source: <a href='https://github.com/chr1swallace/simGWAS/blob/master/R/make_dataset.R'><code>R/make_dataset.R</code></a></small>
     <div class="hidden name"><code>make_dataset.Rd</code></div>
     </div>
 
     <div class="ref-description">
-
+    
+    <p>Simulate a dataset</p>
+    
     </div>
 
     <pre class="usage"><span class='fu'>make_dataset</span>(<span class='no'>df</span>, <span class='no'>N0</span>, <span class='no'>N1</span>, <span class='no'>CV</span>, <span class='no'>PWgY0</span>, <span class='no'>PWgY1</span>)</pre>
@@ -123,7 +130,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>df</th>
-      <td><p>control dataset of genotypes to sample from, without phenotype</p></td>
+      <td><p>control dataset of genotypes to sample from, without
+phenotype</p></td>
     </tr>
     <tr>
       <th>N0</th>
@@ -151,6 +159,11 @@
 
     <p>simulated genotype data for N0 controls and N1 cases</p>
     
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Simulates a dataset given a set of controls (without
+phenotype) and a causal model.  This is used for testing code.</p>
+    
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -159,6 +172,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#details">Details</a></li>
           </ul>
 
     <h2>Author</h2>

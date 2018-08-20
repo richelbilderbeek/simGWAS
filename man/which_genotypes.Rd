@@ -2,12 +2,18 @@
 % Please edit documentation in R/extractsnps.R
 \name{which_genotypes}
 \alias{which_genotypes}
-\title{computes a matrix telling us which haplotype pairs correspond to which genotypes}
+\title{maps haplotype pairs to genotypes}
 \usage{
 which_genotypes(nsnps)
 }
 \arguments{
 \item{nsnps}{The number of SNPs}
+}
+\description{
+computes a matrix telling us which haplotype pairs correspond to which genotypes
+}
+\details{
+Internal function
 }
 \author{
 Mary Fortune

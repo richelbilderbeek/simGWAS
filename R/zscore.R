@@ -1,4 +1,6 @@
 
+##' Compute vector of expected Z scores
+##' 
 ##' @title Compute vector of expected Z Scores
 ##' @export
 ##' @param N0 The number of Y=0
@@ -22,6 +24,7 @@ expected_z_score<-function(N0,N1,snps,W,gamma.W,freq,
     return(exp_z_score)
 }
 
+##' Compute matrix of simulated Z scores
 ##' @title Compute a simulated Z Score
 ##' @export
 ##' @inheritParams expected_z_score

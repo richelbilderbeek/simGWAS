@@ -1,13 +1,13 @@
 Package: simGWAS
 Type: Package
 Title: Fast simulation of large-scale GWAS output 
-Version: 0.1-0
-Date: 2018-05-09
+Version: 0.2.0
+Date: 2018-08-20
 Authors@R: c(person("Mary", "Fortune", role=c("aut","cre"), email = "mdf34@cam.ac.uk"),
     person("Chris","Wallace", role="aut", email="cew54@cam.ac.uk"),
     person("Marcus", "Klarqvist", role=c("ctb")))
-Author: Mary Fortune
-Maintainer: Mary Fortune <mdf34@cam.ac.uk>
+Author: Mary Fortune, Chris Wallace, Marcus Klarqvist
+Maintainer: Chris Wallace <cew54@cam.ac.uk>
 Description: Simulating output from a case-control GWAS with a given causal model.
 License: GPL
 LazyLoad: yes

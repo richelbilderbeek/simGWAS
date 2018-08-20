@@ -2,12 +2,13 @@
 % Please edit documentation in R/make_dataset.R
 \name{make_dataset}
 \alias{make_dataset}
-\title{Simulate a dataset given a set of controls (without phenotype) and a causal model}
+\title{Simulate a dataset}
 \usage{
 make_dataset(df, N0, N1, CV, PWgY0, PWgY1)
 }
 \arguments{
-\item{df}{control dataset of genotypes to sample from, without phenotype}
+\item{df}{control dataset of genotypes to sample from, without
+phenotype}
 
 \item{N0}{number of samples with Y=0}
 
@@ -21,6 +22,13 @@ make_dataset(df, N0, N1, CV, PWgY0, PWgY1)
 }
 \value{
 simulated genotype data for N0 controls and N1 cases
+}
+\description{
+Simulate a dataset
+}
+\details{
+Simulates a dataset given a set of controls (without
+phenotype) and a causal model.  This is used for testing code.
 }
 \author{
 Mary Fortune

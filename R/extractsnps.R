@@ -1,4 +1,11 @@
-##' @title computes a matrix telling us which haplotype pairs correspond to which genotypes
+Probability = NULL
+m = NULL
+
+##' computes a matrix telling us which haplotype pairs correspond to which genotypes
+##' 
+##' Internal function
+##' 
+##' @title maps haplotype pairs to genotypes
 ##' @param nsnps The number of SNPs
 ##' @author Mary Fortune
 which_genotypes<-function(nsnps){
