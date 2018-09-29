@@ -3,6 +3,7 @@ url: http://chr1swallace.github.io/simGWAS
 template:
   params:
     bootswatch: simplex
+news:
 reference:
   - title: Expected statistics
     desc: ~
@@ -14,6 +15,7 @@ reference:
     contents:
       - '`simulated_vbeta`'
       - '`simulated_z_score`'
+      - '`simulated_z_null`'
   - title: Others
     desc: Other functions and helpers
     contents:

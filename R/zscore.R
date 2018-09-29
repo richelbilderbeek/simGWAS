@@ -24,6 +24,24 @@ expected_z_score<-function(N0,N1,snps,W,gamma.W,freq,
     return(exp_z_score)
 }
 
+##' Compute matrix of simulated Z scores about expected values of 0 -
+##' ie under a null of no association at any SNP
+##' @title Compute a NULL simulated Z Score
+##' @export
+##' @inheritParams expected_z_score
+##' @param nrep Number of replicates (simulated vectors of Z scores)
+##'     under this scenario.  Default=1
+##' @author Mary Fortune and Chris Wallace
+simulated_z_null<-function(snps,freq,
+                            nrep=1){
+    exp_z_score<- rep(0,length(snps))
+    LD<-wcor2(as.matrix(freq[,setdiff(colnames(freq),"Probability")]),
+              freq$Probability)
+    sim_z_score<-rmvnorm(n=nrep,mean=exp_z_score,sigma=LD)
+    if(nrep==1)
+        return(c(sim_z_score))
+    sim_z_score
+}
 ##' Compute matrix of simulated Z scores
 ##' @title Compute a simulated Z Score
 ##' @export
