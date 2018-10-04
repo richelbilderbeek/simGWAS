@@ -1,6 +1,7 @@
 # simGWAS 0.2.0-1
 
 - added simulated_z_null() to simulate Z scores with 0 expectation at all SNPs
+- bugfixed vignette
 
 2018-29-09
 

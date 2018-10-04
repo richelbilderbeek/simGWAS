@@ -1,4 +1,9 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^_pkgdown.yaml$
-^docs$
+^docs$ .gitignore
+.Rhistory
+src/.gitignore
+.git
+.Rproj.user
+docs

@@ -1,12 +1,14 @@
 Package: simGWAS
 Type: Package
-Title: Fast simulation of large-scale GWAS output 
+Title: Fast Simulation of Large Case-Control GWAS Summary Statistics
 Version: 0.2.0-1
 Date: 2018-09-29
-Authors@R: c(person("Mary", "Fortune", role=c("aut","cre"), email = "mdf34@cam.ac.uk"),
-    person("Chris","Wallace", role="aut", email="cew54@cam.ac.uk"),
+Authors@R: c(person("Mary", "Fortune", role=c("aut"), email = "mdf34@cam.ac.uk"),
+    person("Chris","Wallace", role=c("aut","cre"), email="cew54@cam.ac.uk"),
     person("Marcus", "Klarqvist", role=c("ctb")))
-Author: Mary Fortune, Chris Wallace, Marcus Klarqvist
+Author: Mary Fortune [aut], 
+	Chris Wallace [aut,cre], 
+	Marcus Klarqvist [ctb]
 Maintainer: Chris Wallace <cew54@cam.ac.uk>
 Description: Simulating output from a case-control GWAS with a given causal model.
 License: GPL
@@ -26,7 +28,6 @@ Imports:
     dplyr,
     combinat,
     corpcor,
-    methods,
     mvtnorm
 RoxygenNote: 6.0.1.9000
 Suggests: knitr,
