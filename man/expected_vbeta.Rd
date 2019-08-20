@@ -4,7 +4,8 @@
 \alias{expected_vbeta}
 \title{Estimate the expected variance of beta}
 \usage{
-expected_vbeta(N0, N1, snps, W, gamma.W, freq, GenoProbList)
+expected_vbeta(N0, N1, snps, W, gamma.W, freq,
+  GenoProbList = make_GenoProbList(snps = snps, W = W, freq = freq))
 }
 \arguments{
 \item{N0}{The number of Y=0}
@@ -29,6 +30,12 @@ Estimate the expected variance of beta.  This is approximately expected(1/var(U)
 }
 \details{
 Assumes we have a list, GenoProbList, giving the GenoProb values for each X.
+}
+\examples{
+freq=fake_freq(nhaps=100,nsnps=5) # fake haplotype frequency data
+EVB=expected_vbeta(N0=1000,N1=2000,snps=paste0("s",1:5),
+                    W="s1",gamma.W=log(1.5),freq=freq)
+EVB # causal variant is SNP 1, with OR 1.5
 }
 \author{
 Mary Fortune and Chris Wallace

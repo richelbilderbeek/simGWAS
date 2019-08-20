@@ -28,6 +28,12 @@ The expected Z Score for all snps in snps, assuming the causal SNPs are W
 \description{
 Compute vector of expected Z scores
 }
+\examples{
+freq=fake_freq(nhaps=100,nsnps=5) # fake haplotype frequency data
+EZ=expected_z_score(N0=1000,N1=2000,snps=paste0("s",1:5),
+                    W="s1",gamma.W=log(1.5),freq=freq)
+EZ # causal variant is SNP 1, with OR 1.5
+}
 \author{
 Mary Fortune and Chris Wallace
 }

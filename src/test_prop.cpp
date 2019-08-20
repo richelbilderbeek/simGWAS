@@ -83,11 +83,15 @@ NumericMatrix combinationRefs(const IntegerMatrix& x, const IntegerMatrix& cols,
     //pragma omp parallel for num_threads(threads)
     for(int k = 0; k < ncol2; ++k){
        int* vals = 0;
-       posix_memalign((void**)&vals, 16, nrow * sizeof(int));
-        memset(&vals[0], 0, nrow * sizeof vals[0]); // Stupid OpenMP limitation
+       if(posix_memalign((void**)&vals, 16, nrow * sizeof(int)))
+	 return 0;
+       memset(&vals[0], 0, nrow * sizeof vals[0]); // Stupid OpenMP limitation
         
-        int positions[nrow2+1];
-        for(int i = 0; i < nrow2; ++i)
+        // int positions[nrow2+1];
+	int *positions = new int[nrow2+1];
+  // char filename1char[filenameLength];
+  // char *filename1 = new char[filenameLength];
+ for(int i = 0; i < nrow2; ++i)
             positions[i] = cols(i,k)-1;
 
          // Frequency

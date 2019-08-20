@@ -4,8 +4,8 @@ vals_3SNP<-expand.grid(1:2,1:2,1:2)
 
 
 #To know which outputs to give for X=0, X=1,X=2
-geno_2SNP<-hcube(rep(3,2))-1
-geno_3SNP<-hcube(rep(3,3))-1
+geno_2SNP<-combinat::hcube(rep(3,2))-1
+geno_3SNP<-combinat::hcube(rep(3,3))-1
 
 which_X0_2SNP<-which(geno_2SNP[,1]==0)
 which_X1_2SNP<-which(geno_2SNP[,1]==1)
@@ -17,12 +17,15 @@ which_X2_3SNP<-which(geno_3SNP[,1]==2)
 ##' compute a list, GenoProbList, giving the GenoProb values for each X.
 ##'
 ##' @title make_GenoProbList
-##' @param snps The snps at which we wish to compute the expected Z Score
-##' @param W	The true causal SNPs (these need not be in "snps")
+##' @param snps Index of SNPs at which we wish to compute the expected Z Score
+##' @param W	Index of true causal SNPs (these need not be in "snps")
 ##' @param freq Frequencies of SNP appearances (computed using snphap)
 ##' @export
 ##' @return The the GenoProb values for each X
 ##' @author Mary Fortune and Chris Wallace
+##' @examples
+##' freq=fake_freq() # fake haplotype frequency data
+##' problist=make_GenoProbList(1:2,W=1,freq)
 make_GenoProbList<-function(snps,W,freq){
     lapply(snps, fastextractsnps, W=W,freq=freq)## hapmap=freqmat,freqprob=freqprob)
 }

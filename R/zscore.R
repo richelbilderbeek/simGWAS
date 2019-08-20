@@ -12,6 +12,11 @@
 ##' @param GenoProbList An list of objects giving the probability of seeing each {X,W} genotype vector.  This can be calculated within the function if no value supplied, or you can pass a pre-calculated version
 ##' @return The expected Z Score for all snps in snps, assuming the causal SNPs are W
 ##' @author Mary Fortune and Chris Wallace
+##' @examples
+##' freq=fake_freq(nhaps=100,nsnps=5) # fake haplotype frequency data
+##' EZ=expected_z_score(N0=1000,N1=2000,snps=paste0("s",1:5),
+##'                     W="s1",gamma.W=log(1.5),freq=freq)
+##' EZ # causal variant is SNP 1, with OR 1.5
 expected_z_score<-function(N0,N1,snps,W,gamma.W,freq,
                             GenoProbList=make_GenoProbList(snps=snps,W=W,freq=freq)){
     if(!(is.data.frame(freq) & "Probability" %in% colnames(freq)))
@@ -32,8 +37,11 @@ expected_z_score<-function(N0,N1,snps,W,gamma.W,freq,
 ##' @param nrep Number of replicates (simulated vectors of Z scores)
 ##'     under this scenario.  Default=1
 ##' @author Mary Fortune and Chris Wallace
-simulated_z_null<-function(snps,freq,
-                            nrep=1){
+##' @examples
+##' freq=fake_freq(nhaps=100,nsnps=5) # fake haplotype frequency data
+##'     Z=simulated_z_null(snps=paste0("s",1:5),freq=freq,nrep=3)
+##' Z # no causal variants
+simulated_z_null<-function(snps,freq, nrep=1){
     exp_z_score<- rep(0,length(snps))
     LD<-wcor2(as.matrix(freq[,setdiff(colnames(freq),"Probability")]),
               freq$Probability)
@@ -42,12 +50,18 @@ simulated_z_null<-function(snps,freq,
         return(c(sim_z_score))
     sim_z_score
 }
+
 ##' Compute matrix of simulated Z scores
 ##' @title Compute a simulated Z Score
 ##' @export
 ##' @inheritParams expected_z_score
-##' @param nrep Number of replicates (simulated vectors of Z scores) under this scenario.  Default=1
+##' @param nrep Number of replicates (simulated vectors of Z scores)
+##'     under this scenario.  Default=1
 ##' @author Mary Fortune and Chris Wallace
+##' @examples freq=fake_freq(nhaps=100,nsnps=5) # fake haplotype frequency data
+##'     Z=simulated_z_score(N0=1000,N1=2000,snps=paste0("s",1:5),
+##'                         W="s1",gamma.W=log(1.5),freq=freq,nrep=3)
+##'     Z # causal variant is SNP 1, with OR 1.5
 simulated_z_score<-function(N0,N1,snps,W,gamma.W,freq,
                             GenoProbList=make_GenoProbList(snps=snps,W=W,freq=freq),
                             nrep=1){
@@ -121,7 +135,7 @@ est_statistic<-function(N0,N1,snps,W,gamma.W,freq,GenoProbList){
     g0 <- compute_gamma0(N0=N0,N1=N1,W=W,gamma.W=gamma.W,freq=freq)
     ## compute P(Y=1 | W=w)
     N<-N0+N1
-    expeta<-exp(g0+rowSums(sweep((hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`)))
+    expeta<-exp(g0+rowSums(sweep((combinat::hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`)))
                                         #compute the constant factors we will multiply by
     Ufactor<-N0*(N-1)*(N0*expeta-N1)/(N^2)
     powerfactor<-N0*(expeta+1)/N

@@ -7,7 +7,13 @@
 ##' @inheritParams simulated_z_score
 ##' @return The expected variance of beta for each SNP X, assuming the causal SNPs are W
 ##' @author Mary Fortune and Chris Wallace
-expected_vbeta<-function(N0,N1,snps,W,gamma.W,freq,GenoProbList){
+##' @examples
+##' freq=fake_freq(nhaps=100,nsnps=5) # fake haplotype frequency data
+##' EVB=expected_vbeta(N0=1000,N1=2000,snps=paste0("s",1:5),
+##'                     W="s1",gamma.W=log(1.5),freq=freq)
+##' EVB # causal variant is SNP 1, with OR 1.5
+expected_vbeta<-function(N0,N1,snps,W,gamma.W,freq,
+                         GenoProbList=make_GenoProbList(snps=snps,W=W,freq=freq)){
                                         #check that we have SNPs X and W in the reference dataset
     fvbeta<-function(N0,N1,Ufactor,powerfactor,freq,GenoProbXW){
         ## uses Rcpp file ../src/est_zscore.cpp
@@ -23,7 +29,7 @@ expected_vbeta<-function(N0,N1,snps,W,gamma.W,freq,GenoProbList){
     g0 <- compute_gamma0(N0=N0,N1=N1,W=W,gamma.W=gamma.W,freq=freq)
     ## compute P(Y=1 | W=w)
     N<-N0+N1
-    expeta<-exp(g0+rowSums(sweep((hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`)))
+    expeta<-exp(g0+rowSums(sweep((combinat::hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`)))
                                         #compute the constant factors we will multiply by
     Ufactor<-N0*(N-1)*(N0*expeta-N1)/(N^2)
     powerfactor<-N0*(expeta+1)/N
@@ -37,12 +43,16 @@ expected_vbeta<-function(N0,N1,snps,W,gamma.W,freq,GenoProbList){
 ##'
 ##' Assumes we have a list, GenoProbList, giving the GenoProb values for each X. 
 ##' @title Compute a simulated var(beta)
-##' @export
 ##' @inheritParams expected_z_score
 ##' @inheritParams simulated_z_score
 ##' @return A simulated variance of beta for each SNP X, assuming the causal SNPs are W
 ##' @export
 ##' @author Mary Fortune and Chris Wallace
+##' @examples
+##' freq=fake_freq(nhaps=100,nsnps=5) # fake haplotype frequency data
+##' VB=simulated_vbeta(N0=1000,N1=2000,snps=paste0("s",1:5),
+##'                     W="s1",gamma.W=log(1.5),freq=freq)
+##' VB # causal variant is SNP 1, with OR 1.5
 simulated_vbeta<-function(N0,N1,snps,W,gamma.W,freq,
                           GenoProbList=make_GenoProbList(snps=snps,W=W,freq=freq),
                           nrep=1){
@@ -61,7 +71,7 @@ simulated_vbeta<-function(N0,N1,snps,W,gamma.W,freq,
     g0 <- compute_gamma0(N0=N0,N1=N1,W=W,gamma.W=gamma.W,freq=freq)
     ## compute P(Y=1 | W=w)
     N<-N0+N1
-    expeta<-exp(g0+rowSums(sweep((hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`)))
+    expeta<-exp(g0+rowSums(sweep((combinat::hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`)))
                                         #compute the constant factors we will multiply by
     Ufactor<-N0*(N-1)*(N0*expeta-N1)/(N^2)
     powerfactor<-N0*(expeta+1)/N

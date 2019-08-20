@@ -10,7 +10,7 @@
 ##' @return The value of gamma0
 ##' @author Mary Fortune
 compute_gamma0<-function(N0,N1,W,gamma.W,freq){
-  eta.CV<-rowSums(sweep((hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`))
+  eta.CV<-rowSums(sweep((combinat::hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`))
   e.eta.CV<-exp(eta.CV)
   GenoProbW<-make_GenoProbList(W[1],W,freq)[[1]]
   PW<-GenoProbW[[1]]+GenoProbW[[2]]+GenoProbW[[3]]
@@ -34,7 +34,7 @@ compute_gamma0<-function(N0,N1,W,gamma.W,freq){
 ##' @return The value of gamma0
 ##' @author Mary Fortune
 compute_gamma0_PW<-function(N0,N1,W,gamma.W,PWgY0){
-  e.eta.CV<-exp(rowSums(sweep((hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`)))
+  e.eta.CV<-exp(rowSums(sweep((combinat::hcube(rep(3,length(W)))-1),MARGIN=2,gamma.W,`*`)))
   gamma0<-log(N1)-log(N0)-log(sum(e.eta.CV*PWgY0))
   return(gamma0)
 }

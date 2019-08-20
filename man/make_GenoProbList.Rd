@@ -7,9 +7,9 @@
 make_GenoProbList(snps, W, freq)
 }
 \arguments{
-\item{snps}{The snps at which we wish to compute the expected Z Score}
+\item{snps}{Index of SNPs at which we wish to compute the expected Z Score}
 
-\item{W}{The true causal SNPs (these need not be in "snps")}
+\item{W}{Index of true causal SNPs (these need not be in "snps")}
 
 \item{freq}{Frequencies of SNP appearances (computed using snphap)}
 }
@@ -18,6 +18,10 @@ The the GenoProb values for each X
 }
 \description{
 compute a list, GenoProbList, giving the GenoProb values for each X.
+}
+\examples{
+freq=fake_freq() # fake haplotype frequency data
+problist=make_GenoProbList(1:2,W=1,freq)
 }
 \author{
 Mary Fortune and Chris Wallace

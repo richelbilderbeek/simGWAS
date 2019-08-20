@@ -18,6 +18,11 @@ under this scenario.  Default=1}
 Compute matrix of simulated Z scores about expected values of 0 -
 ie under a null of no association at any SNP
 }
+\examples{
+freq=fake_freq(nhaps=100,nsnps=5) # fake haplotype frequency data
+    Z=simulated_z_null(snps=paste0("s",1:5),freq=freq,nrep=3)
+Z # no causal variants
+}
 \author{
 Mary Fortune and Chris Wallace
 }

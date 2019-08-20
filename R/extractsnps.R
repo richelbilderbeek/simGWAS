@@ -12,11 +12,11 @@ which_genotypes<-function(nsnps){
 	if (nsnps<2){return(0)}
 	npheno<-2^nsnps
 	#tells you which haplotype pairs correspond to which SNPs, for number of SNPS = n
-	haptype<-(hcube(rep(2,nsnps))-1)
+	haptype<-(combinat::hcube(rep(2,nsnps))-1)
 	Genotype<-apply(expand.grid(1:npheno,1:npheno),1,function(i) (colSums(haptype[i,])))
 	Genotype<-apply(Genotype,2,function(x){paste(x,collapse="")})
 	#We order the genotypes by the order we analyse them in the est_zscore code
-	unique_Genotype<-apply(hcube(rep(3,nsnps))-1, 1,function(x){paste(x,collapse="")})
+	unique_Genotype<-apply(combinat::hcube(rep(3,nsnps))-1, 1,function(x){paste(x,collapse="")})
 	geno_matrix<-matrix(0,length(unique_Genotype),npheno^2)
 	for (ii in 1:length(unique_Genotype)){
 		geno_matrix[ii,which(Genotype==unique_Genotype[ii])]<-1
@@ -33,11 +33,11 @@ geno_matrix_5snps<-which_genotypes(5)
 geno_matrix_6snps<-which_genotypes(6)
 
 #To know which outputs to give for X=0, X=1,X=2
-geno_2SNP<-hcube(rep(3,2))-1
-geno_3SNP<-hcube(rep(3,3))-1
-geno_4SNP<-hcube(rep(3,4))-1
-geno_5SNP<-hcube(rep(3,5))-1
-geno_6SNP<-hcube(rep(3,6))-1
+geno_2SNP<-combinat::hcube(rep(3,2))-1
+geno_3SNP<-combinat::hcube(rep(3,3))-1
+geno_4SNP<-combinat::hcube(rep(3,4))-1
+geno_5SNP<-combinat::hcube(rep(3,5))-1
+geno_6SNP<-combinat::hcube(rep(3,6))-1
 
 which_X0_2SNP<-which(geno_2SNP[,1]==0)
 which_X1_2SNP<-which(geno_2SNP[,1]==1)
@@ -195,13 +195,13 @@ extractsnps<-function(X,W,freq){
 extractsnps_2snps<-function(haptype){
 	hap_Probs<-haptype$totalProb
 	names(hap_Probs)<-apply((haptype[,-3]-1),1,paste,collapse="")
-	#hap_Probs<-hap_Probs[apply(hcube(rep(2,2))-1, 1,function(x){paste(x,collapse="")})]
+	#hap_Probs<-hap_Probs[apply(combinat::hcube(rep(2,2))-1, 1,function(x){paste(x,collapse="")})]
 	hap_Probs<-hap_Probs[c( "00", "10", "01", "11")]
 	hap_Probs[is.na(hap_Probs)]<-0
 	#Probs<-c(hap_Probs%*%t(hap_Probs))
 	#genotype<-c(geno_matrix_2snps%*%c(hap_Probs%*%t(hap_Probs)))
 	genotype<-MatrixVector(geno_matrix_2snps,c(hap_Probs%*%t(hap_Probs)),verbose=F)
-	#return(cbind(hcube(rep(3,2))-1,genotype))
+	#return(cbind(combinat::hcube(rep(3,2))-1,genotype))
 	return(genotype)
 }
 
@@ -210,7 +210,7 @@ extractsnps_3snps<-function(haptype){
 	hap_Probs<-haptype$totalProb
 	names(hap_Probs)<-apply((haptype[,-4]-1),1,paste,collapse="")
 	#add extra columns with probability 0 for the haplotypes which do not appear in our dataset
-	#hap_Probs<-hap_Probs[apply(hcube(rep(2,3))-1, 1,function(x){paste(x,collapse="")})]
+	#hap_Probs<-hap_Probs[apply(combinat::hcube(rep(2,3))-1, 1,function(x){paste(x,collapse="")})]
 	hap_Probs<-hap_Probs[c( "000", "100", "010", "110", "001", "101", "011", "111")]
 	hap_Probs[is.na(hap_Probs)]<-0
 	#compute genotype probabilities (may be some duplicates)
@@ -218,7 +218,7 @@ extractsnps_3snps<-function(haptype){
 	#sum together hap pairs corresponding to the same genotype
 	#genotype<-c(geno_matrix_3snps%*%c(hap_Probs%*%t(hap_Probs)))
 	genotype<-MatrixVector(geno_matrix_3snps,c(hap_Probs%*%t(hap_Probs)),verbose=F)
-	#return(cbind(hcube(rep(3,3))-1,genotype))
+	#return(cbind(combinat::hcube(rep(3,3))-1,genotype))
 	return(genotype)
 }
 
@@ -226,7 +226,7 @@ extractsnps_4snps<-function(haptype){
 	hap_Probs<-haptype$totalProb
 	names(hap_Probs)<-apply((haptype[,-5]-1),1,paste,collapse="")
 	#add extra columns with probability 0 for the haplotypes which do not appear in our dataset
-	hap_Probs<-hap_Probs[apply(hcube(rep(2,4))-1, 1,function(x){paste(x,collapse="")})]
+	hap_Probs<-hap_Probs[apply(combinat::hcube(rep(2,4))-1, 1,function(x){paste(x,collapse="")})]
 	hap_Probs[is.na(hap_Probs)]<-0
 	#compute genotype probabilities (may be some duplicates)
 	#Probs<-c(hap_Probs%*%t(hap_Probs))
@@ -240,7 +240,7 @@ extractsnps_5snps<-function(haptype){
 	hap_Probs<-haptype$totalProb
 	names(hap_Probs)<-apply((haptype[,-6]-1),1,paste,collapse="")
 	#add extra columns with probability 0 for the haplotypes which do not appear in our dataset
-	hap_Probs<-hap_Probs[apply(hcube(rep(2,5))-1, 1,function(x){paste(x,collapse="")})]
+	hap_Probs<-hap_Probs[apply(combinat::hcube(rep(2,5))-1, 1,function(x){paste(x,collapse="")})]
 	hap_Probs[is.na(hap_Probs)]<-0
 	#compute genotype probabilities (may be some duplicates)
 	#Probs<-c(hap_Probs%*%t(hap_Probs))
@@ -254,7 +254,7 @@ extractsnps_6snps<-function(haptype){
 	hap_Probs<-haptype$totalProb
 	names(hap_Probs)<-apply((haptype[,-7]-1),1,paste,collapse="")
 	#add extra columns with probability 0 for the haplotypes which do not appear in our dataset
-	hap_Probs<-hap_Probs[apply(hcube(rep(2,6))-1, 1,function(x){paste(x,collapse="")})]
+	hap_Probs<-hap_Probs[apply(combinat::hcube(rep(2,6))-1, 1,function(x){paste(x,collapse="")})]
 	hap_Probs[is.na(hap_Probs)]<-0
 	#compute genotype probabilities (may be some duplicates)
 	#Probs<-c(hap_Probs%*%t(hap_Probs))

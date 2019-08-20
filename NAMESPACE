@@ -2,8 +2,8 @@
 
 export(expected_vbeta)
 export(expected_z_score)
+export(fake_freq)
 export(make_GenoProbList)
-export(make_dataset)
 export(simulated_vbeta)
 export(simulated_z_null)
 export(simulated_z_score)
