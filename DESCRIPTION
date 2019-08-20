@@ -10,7 +10,7 @@ Author: Mary Fortune [aut],
 	Chris Wallace [aut, cre], 
 	Marcus Klarqvist [ctb]
 Maintainer: Chris Wallace <cew54@cam.ac.uk>
-Description: Simulating output from a case-control GWAS with a given causal model.
+Description: Simulating output from a case-control genome wide association study (GWAS) with a given causal model. Fortune and Wallace (2019) <doi:10.1093/bioinformatics/bty898>
 License: GPL
 LazyLoad: yes
 OS_type: unix
