@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // [[Rcpp::export]]
 std::vector< std::string > haplabs(const int n) {
-  const int n2=pow(2,n);
+  const int n2=pow(2.0,n);
   std::vector< std::string > labs;
   for(int i=0; i<n2; i++) {
     std::bitset< sizeof(i)*CHAR_BIT > bits( i );
@@ -28,7 +28,7 @@ std::vector< std::string > haplabs(const int n) {
 NumericVector happrobs(const NumericMatrix& G, const NumericVector& P) {
   const int m=G.ncol();
   const int n=G.nrow();
-  const int m2=pow(2,m);
+  const int m2=pow(2.0,m);
   // std::cout << "nsnps: " << m << std::endl;
   std::vector< std::string > labs = haplabs(m);
   NumericVector pr(m2);

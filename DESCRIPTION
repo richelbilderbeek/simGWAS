@@ -1,8 +1,8 @@
 Package: simGWAS
 Type: Package
 Title: Fast Simulation of Large Case-Control GWAS Summary Statistics
-Version: 0.2.0-2
-Date: 2019-08-19
+Version: 0.2.0-3
+Date: 2019-08-29
 Authors@R: c(person("Mary", "Fortune", role=c("aut"), email = "mdf34@cam.ac.uk"),
     person("Chris","Wallace", role=c("aut","cre"), email="cew54@cam.ac.uk"),
     person("Marcus", "Klarqvist", role=c("ctb")))

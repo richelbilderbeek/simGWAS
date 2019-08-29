@@ -1,3 +1,7 @@
+# simGWAS 0.2.0-3
+
+- fix overloading of pow() that is not compatible with solaris compiler
+
 # simGWAS 0.2.0-2
 
 - added CITATION
