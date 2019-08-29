@@ -10,7 +10,7 @@ Author: Mary Fortune [aut],
 	Chris Wallace [aut, cre], 
 	Marcus Klarqvist [ctb]
 Maintainer: Chris Wallace <cew54@cam.ac.uk>
-Description: Simulating output from a case-control genome wide association study (GWAS) with a given causal model. Fortune and Wallace (2019) <doi:10.1093/bioinformatics/bty898>
+Description: Simulating output from a case-control genome wide association study (GWAS) with a given causal model. Fortune and Wallace (2019) <doi:10.1093/bioinformatics/bty898>.
 License: GPL
 LazyLoad: yes
 OS_type: unix
@@ -30,7 +30,7 @@ Imports:
     combinat,
     corpcor,
     mvtnorm
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
 Suggests: knitr,
     rmarkdown,
     testthat
