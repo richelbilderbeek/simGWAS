@@ -8,3 +8,4 @@ src/.gitignore
 .Rproj.user
 docs
 ^simGWAS\.Rproj$
+^FAQ\.md$
