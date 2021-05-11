@@ -4,9 +4,16 @@
 \alias{simulated_vbeta}
 \title{Compute a simulated var(beta)}
 \usage{
-simulated_vbeta(N0, N1, snps, W, gamma.W, freq,
+simulated_vbeta(
+  N0,
+  N1,
+  snps,
+  W,
+  gamma.W,
+  freq,
   GenoProbList = make_GenoProbList(snps = snps, W = W, freq = freq),
-  nrep = 1)
+  nrep = 1
+)
 }
 \arguments{
 \item{N0}{The number of Y=0}

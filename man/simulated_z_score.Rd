@@ -4,9 +4,16 @@
 \alias{simulated_z_score}
 \title{Compute a simulated Z Score}
 \usage{
-simulated_z_score(N0, N1, snps, W, gamma.W, freq,
+simulated_z_score(
+  N0,
+  N1,
+  snps,
+  W,
+  gamma.W,
+  freq,
   GenoProbList = make_GenoProbList(snps = snps, W = W, freq = freq),
-  nrep = 1)
+  nrep = 1
+)
 }
 \arguments{
 \item{N0}{The number of Y=0}

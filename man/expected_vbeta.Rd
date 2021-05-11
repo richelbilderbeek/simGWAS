@@ -4,8 +4,15 @@
 \alias{expected_vbeta}
 \title{Estimate the expected variance of beta}
 \usage{
-expected_vbeta(N0, N1, snps, W, gamma.W, freq,
-  GenoProbList = make_GenoProbList(snps = snps, W = W, freq = freq))
+expected_vbeta(
+  N0,
+  N1,
+  snps,
+  W,
+  gamma.W,
+  freq,
+  GenoProbList = make_GenoProbList(snps = snps, W = W, freq = freq)
+)
 }
 \arguments{
 \item{N0}{The number of Y=0}

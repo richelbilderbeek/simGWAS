@@ -4,8 +4,15 @@
 \alias{expected_z_score}
 \title{Compute vector of expected Z Scores}
 \usage{
-expected_z_score(N0, N1, snps, W, gamma.W, freq,
-  GenoProbList = make_GenoProbList(snps = snps, W = W, freq = freq))
+expected_z_score(
+  N0,
+  N1,
+  snps,
+  W,
+  gamma.W,
+  freq,
+  GenoProbList = make_GenoProbList(snps = snps, W = W, freq = freq)
+)
 }
 \arguments{
 \item{N0}{The number of Y=0}

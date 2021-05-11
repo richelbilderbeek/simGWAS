@@ -38,3 +38,4 @@ Suggests: knitr,
 VignetteBuilder: knitr
 URL: https://github.com/chr1swallace/simGWAS
 BugReports: https://github.com/chr1swallace/simGWAS/issues
+Encoding: UTF-8
