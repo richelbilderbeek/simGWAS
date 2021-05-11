@@ -7,3 +7,4 @@ src/.gitignore
 .git
 .Rproj.user
 docs
+^simGWAS\.Rproj$
